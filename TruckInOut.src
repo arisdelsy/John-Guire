@@ -4,6 +4,7 @@
 -- and is loaded by importing the application from the Configuration menu
 -- “Import Files”.  
 ------------------------------------------------------------------------------
+--1320
 
 program TruckInOut; 
  
@@ -1319,7 +1320,7 @@ program TruckInOut;
 
   end;
 
-  procedure HowmanyScales;
+  procedure HowmanyScales;--------------------------RIGHT HERE
   begin
 
     if GetUnits(1, g_uUnits) = SysOk then
