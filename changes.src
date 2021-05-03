@@ -1,0 +1,44 @@
+-- Hey steven i am sure my logic is lacking please check and lmk
+-- TURNONGREENLIGHT2 SETS SCALES ON 0 TO DEFAULT GREEN
+  procedure TurnOnGreenLight2;  
+  begin 
+
+    if g_iTrafficLights = 1 then
+      Print(Auxfmt20);
+      SetDigout(g_ciDigSlot, g_ciRedLight, g_ciDigOutOff);
+      SetupStartTimer(50, 500, TimerContinuous);
+      SetDigout(g_ciDigSlot, g_ciGreenLight, g_ciDigOutOn); 
+      g_sLightStatus := "GREEN";
+      SetImageWidgetPath(btnStop, "local://24.png");
+      SetImageWidgetPath(btnGo, "local://23.png");
+
+    
+    elsif g_iTrafficLights = 0 then 
+        Print(Auxfmt20);
+        --SetDigout(g_ciDigSlot, g_ciRedLight, g_ciDigOutOff);
+        --SetupStartTimer(50, 500, TimerContinuous);
+        SetDigout(g_ciDigSlot, g_ciGreenLight, g_ciDigOutOn);
+        g_sLightStatus := "GREEN";
+        SetImageWidgetPath(btnStop, "local://24.png");
+        SetImageWidgetPath(btnGo, "local://23.png");
+
+
+    end if;
+
+  end;
+
+  -- Turn on red light after 5
+ procedure TurnOnRedLight2; 
+ begin
+
+    if g_iTrafficLights = 1 then
+      Print(Auxfmt19);        
+      SetDigout(g_ciDigSlot, g_ciGreenLight, g_ciDigOutOff);
+      SetDigout(g_ciDigSlot, g_ciRedLight, g_ciDigOutOn);
+      SetupStartTimer(50, 500, TimerContinuous);   
+      g_sLightStatus := "RED";   
+      SetImageWidgetPath(btnstop, "local://25.png");
+      SetImageWidgetPath(btnGo, "local://22.png");
+    end if;
+		
+ end;  
