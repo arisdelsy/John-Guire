@@ -33,6 +33,8 @@ program TruckInOut;
   -- Outputs
   g_ciGreenLight   : constant integer := 1;
   g_ciRedLight     : constant integer := 2;
+  g_ciGreenLight2  : constant integer := 3;
+  g_ciRedLight2    : constant integer := 4;
      
   -- Operation Modes
   LockMode                : constant integer := 0;
@@ -177,7 +179,7 @@ program TruckInOut;
     return 0;   
     
   end;
-
+\
   procedure TurnOnGreenLight;  
   begin 
 
