@@ -231,19 +231,17 @@ program TruckInOut;
       SetupStartTimer(5, 500, TimerContinuous);
       SetDigout(g_ciDigSlot, g_ciGreenLight, g_ciDigOutOn); 
       g_sLightStatus := "GREEN";
-      SetImageWidgetPath(btnStop, "local://24.png");
-      SetImageWidgetPath(btnGo, "local://23.png");
-
-    
+      SetImageWidgetPath(btnStop2, "local://24.png");
+      SetImageWidgetPath(btnGo2, "local://23.png");
+   
     elsif g_iTrafficLights = 0 then 
-        Print(Auxfmt20);
-        --SetDigout(g_ciDigSlot, g_ciRedLight, g_ciDigOutOff);
-        --SetupStartTimer(50, 500, TimerContinuous);
-        SetDigout(g_ciDigSlot, g_ciGreenLight, g_ciDigOutOn);
-        g_sLightStatus := "GREEN";
-        SetImageWidgetPath(btnStop, "local://24.png");
-        SetImageWidgetPath(btnGo, "local://23.png");
-
+      Print(Auxfmt20);
+      --SetDigout(g_ciDigSlot, g_ciRedLight, g_ciDigOutOff);
+      --SetupStartTimer(50, 500, TimerContinuous);
+      SetDigout(g_ciDigSlot, g_ciGreenLight, g_ciDigOutOn);
+      g_sLightStatus := "GREEN";
+      SetImageWidgetPath(btnStop2, "local://24.png");
+      SetImageWidgetPath(btnGo2, "local://23.png");
 
     end if;
 
@@ -259,8 +257,8 @@ program TruckInOut;
       SetDigout(g_ciDigSlot, g_ciRedLight, g_ciDigOutOn);
       SetupStartTimer(5, 500, TimerContinuous);   
       g_sLightStatus := "RED";   
-      SetImageWidgetPath(btnstop, "local://25.png");
-      SetImageWidgetPath(btnGo, "local://22.png");
+      SetImageWidgetPath(btnstop2, "local://25.png");
+      SetImageWidgetPath(btnGo2, "local://22.png");
     end if;
 		
  end;  
