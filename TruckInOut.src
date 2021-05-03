@@ -191,7 +191,8 @@ program TruckInOut;
     end if;
 
   end;
-
+  
+  
   procedure TurnOnGreenLightManually;  
   begin 
 
@@ -218,12 +219,15 @@ program TruckInOut;
 		
  end;  
 
+
+
  procedure TurnOnRedLightManually; 
  begin
 
     Print(Auxfmt19);        
     SetDigout(g_ciDigSlot, g_ciGreenLight, g_ciDigOutOff);
     SetDigout(g_ciDigSlot, g_ciRedLight, g_ciDigOutOn);   
+
     g_sLightStatus := "RED";   
     SetImageWidgetPath(btnstop, "local://25.png");
     SetImageWidgetPath(btnGo, "local://22.png");
