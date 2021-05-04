@@ -239,6 +239,7 @@ lbSet15   : constant integer := 126;
 bar127    : constant integer := 127;
 lbSet16   : constant integer := 128;
 btnRPnt   : constant integer := 129;
+lblWMode  : constant integer := 130;
 barSet14  : constant integer := 160;
 lbSet14   : constant integer := 168;
 
