@@ -129,6 +129,7 @@ program TruckInOut;
   type boolean is (False,True); 
   g_bUpdate : boolean;
   g_bTareOption : boolean;
+  g_weighswitch : boolean;
   
   type DisplayRecord is
     record 
@@ -180,7 +181,7 @@ program TruckInOut;
     return 0;   
     
   end;
-\
+
   procedure TurnOnGreenLight;  
   begin 
 
@@ -208,6 +209,18 @@ program TruckInOut;
   
   end;
 
+  procedure TurnOnGreenLightManually2;  
+  begin 
+
+      Print(Auxfmt20);
+      SetDigout(g_ciDigSlot, g_ciRedLight2, g_ciDigOutOff);
+      SetDigout(g_ciDigSlot, g_ciGreenLight2, g_ciDigOutOn); 
+      g_sLightStatus := "GREEN";
+      SetImageWidgetPath(btnStop2, "local://24.png");
+      SetImageWidgetPath(btnGo2, "local://23.png");
+  
+  end;
+
  procedure TurnOnRedLight; 
  begin
 
@@ -216,7 +229,7 @@ program TruckInOut;
       SetDigout(g_ciDigSlot, g_ciGreenLight, g_ciDigOutOff);
       SetDigout(g_ciDigSlot, g_ciRedLight, g_ciDigOutOn);   
       g_sLightStatus := "RED";   
-      SetImageWidgetPath(btnstop, "local://25.png");
+      SetImageWidgetPath(btnStop, "local://25.png");
       SetImageWidgetPath(btnGo, "local://22.png");
     end if;
 		
@@ -227,22 +240,12 @@ program TruckInOut;
 
     if g_iTrafficLights = 1 then
       Print(Auxfmt20);
-      SetDigout(g_ciDigSlot, g_ciRedLight, g_ciDigOutOff);
-      SetupStartTimer(5, 500, TimerContinuous);
-      SetDigout(g_ciDigSlot, g_ciGreenLight, g_ciDigOutOn); 
+      SetDigout(g_ciDigSlot, g_ciRedLight2, g_ciDigOutOff);
+      --SetupStartTimer(6, 500, TimerOneShot);
+      SetDigout(g_ciDigSlot, g_ciGreenLight2, g_ciDigOutOn); 
       g_sLightStatus := "GREEN";
       SetImageWidgetPath(btnStop2, "local://24.png");
       SetImageWidgetPath(btnGo2, "local://23.png");
-   
-    elsif g_iTrafficLights = 0 then 
-      Print(Auxfmt20);
-      --SetDigout(g_ciDigSlot, g_ciRedLight, g_ciDigOutOff);
-      --SetupStartTimer(50, 500, TimerContinuous);
-      SetDigout(g_ciDigSlot, g_ciGreenLight, g_ciDigOutOn);
-      g_sLightStatus := "GREEN";
-      SetImageWidgetPath(btnStop2, "local://24.png");
-      SetImageWidgetPath(btnGo2, "local://23.png");
-
     end if;
 
   end;
@@ -253,11 +256,11 @@ program TruckInOut;
 
     if g_iTrafficLights = 1 then
       Print(Auxfmt19);        
-      SetDigout(g_ciDigSlot, g_ciGreenLight, g_ciDigOutOff);
-      SetDigout(g_ciDigSlot, g_ciRedLight, g_ciDigOutOn);
-      SetupStartTimer(5, 500, TimerContinuous);   
+      SetDigout(g_ciDigSlot, g_ciGreenLight2, g_ciDigOutOff);
+      SetDigout(g_ciDigSlot, g_ciRedLight2, g_ciDigOutOn);
+      --SetupStartTimer(5, 500, TimerOneshot);   
       g_sLightStatus := "RED";   
-      SetImageWidgetPath(btnstop2, "local://25.png");
+      SetImageWidgetPath(btnStop2, "local://25.png");
       SetImageWidgetPath(btnGo2, "local://22.png");
     end if;
 		
@@ -271,10 +274,23 @@ program TruckInOut;
     SetDigout(g_ciDigSlot, g_ciRedLight, g_ciDigOutOn);   
 
     g_sLightStatus := "RED";   
-    SetImageWidgetPath(btnstop, "local://25.png");
+    SetImageWidgetPath(btnStop, "local://25.png");
     SetImageWidgetPath(btnGo, "local://22.png");
 
  end;       
+
+ procedure TurnOnRedLightManually2; 
+ begin
+
+    Print(Auxfmt19);        
+    SetDigout(g_ciDigSlot, g_ciGreenLight2, g_ciDigOutOff);
+    SetDigout(g_ciDigSlot, g_ciRedLight2, g_ciDigOutOn);   
+
+    g_sLightStatus := "RED";   
+    SetImageWidgetPath(btnStop2, "local://25.png");
+    SetImageWidgetPath(btnGo2, "local://22.png");
+
+ end; 
 
  procedure TurnOffWeighInOutButtons;
  begin
@@ -283,7 +299,6 @@ program TruckInOut;
     SetWidgetVisibility(btnWOut, VOff);  
     SetWidgetVisibility(BarIn, Voff);
     SetWidgetVisibility(BarOut, Voff);
-    SetWidgetVisibility(lbOr, Voff);
 
  end; 
 
@@ -294,7 +309,7 @@ program TruckInOut;
     SetWidgetVisibility(btnWOut, VOn);  
     SetWidgetVisibility(BarIn, VOn);
     SetWidgetVisibility(BarOut, VOn);
-    SetWidgetVisibility(lbOr, Von);
+--    SetWidgetVisibility(lbOr, Von);
 
  end; 
 
@@ -960,13 +975,13 @@ program TruckInOut;
     if EntryMode >= Setup1Mode and EntryMode < Setup2Mode then      
       EntryMode := Setup1Mode;   
     elsif Entrymode = EnterTruckID_WeighIn or EntryMode <= EnterCustomerID then  
-      SetLabelText(lbSts1, Blank); 
+--      SetLabelText(lbSts1, Blank); 
       EntryMode := WeighMode;
     elsif Entrymode = SetupEnterTPasswordMode then
       EntryMode := LastEntryMode;
     else   
       DisplayStatus(Blank); 
-      SetLabelText(lbSts1, Blank);  
+--     SetLabelText(lbSts1, Blank);  
       EntryMode := NoMode;  
     end if;
     
@@ -1127,7 +1142,7 @@ program TruckInOut;
           EntryMode := CapturingInboundWeight;   
           WaitSS(1);          
         else     
-          SetLabelText(lbSts1, "Truck Already Weighed In"); 
+--          SetLabelText(lbSts1, "Truck Already Weighed In"); 
           ReadytoProcessTruck(100); 
         end if;              
       end if;   
@@ -1157,7 +1172,7 @@ program TruckInOut;
           GetTare(g_iTotalScale, g_uUnits, rTareWgt); 
           g_bTareOption := True;
           if rTareWgt = 0.0 then           
-            SetLabelText(lbSts1, "Truck Not Weighed In");
+--            SetLabelText(lbSts1, "Truck Not Weighed In");
             ReadytoProcessTruck(100); 
           else
             if g_iNbrofProducts >= 2 then
@@ -1398,7 +1413,7 @@ program TruckInOut;
   begin
  
     UnLockMajorKeys;
-    SetLabelText(lbSts1, Blank); 
+--    SetLabelText(lbSts1, Blank); 
     TurnOffWeighInOutButtons; 
     ScreenSetup;
     HowmanyScales;
@@ -1408,6 +1423,8 @@ program TruckInOut;
     SelectScreen(g_ciMain); 
     EntryMode := NoMode; 
     SelectScale(g_iTotalScale);
+    g_weighswitch := True;
+    SetLabelText(lblWMode, "Mode: Weigh In");
 
   end; 
 
@@ -1675,7 +1692,14 @@ program TruckInOut;
   
     TurnOnGreenLight;
   
-  end;   
+  end;
+
+  handler Timer5Trip;
+  begin
+
+    TurnOnRedLight2;
+
+  end;
 
   handler SP1Trip;
   begin
@@ -1684,12 +1708,17 @@ program TruckInOut;
     EnableSP(2);
     DisplayStatus(Blank);
     SelectScreen(g_ciMain);	
-    TurnOnRedLight;
+    if g_weighswitch = True then
+      TurnOnRedLight; --Weigh in lights
+      TurnOnRedLight2;
+    else
+      TurnOnRedLight2; -- Weigh out lights
+    end if;
     SelectScale(g_iTotalScale);
     EntryMode := WeighMode;  
     SetWidgetVisibility(btnSetup, VOff);
-    SetLabelText(lbSts1, Blank); 
-    TurnOnWeighInOutButtons;      
+--    SetLabelText(lbSts1, Blank); 
+    TurnOnWeighInOutButtons; 
 
     g_iNbrofProducts := 0;
     if ProductDB.GetFirst = SysOk then
@@ -1721,7 +1750,11 @@ program TruckInOut;
     DisableSP(2);
     EnableSP(1);
     ClosePrompt;
-    TurnOnGreenLight;
+    if g_weighswitch = True then
+      TurnOnGreenLight; --Weigh in lights
+    else
+      TurnOnGreenLight2; -- Weigh out lights
+    end if;
     UnlockMajorKeys; 
     EntryMode := NoMode;  
     selectscreen(g_cimain); 
@@ -1729,7 +1762,7 @@ program TruckInOut;
     SetWidgetVisibility(btnSetup, Von);
     SetWidgetVisibility(btnStop, Von);
     SetWidgetVisibility(btnGo, Von);
-    SetLabelText(lbSts1, Blank);
+--    SetLabelText(lbSts1, Blank);
     DisplayStatus(Blank); 
     StopTimer(25);   
     TurnOffWeighInOutButtons;           
@@ -1762,7 +1795,7 @@ program TruckInOut;
     
       StopTimer(25);
       DisplayStatus(Blank);  
-      SetLabelText(lbSts1,  Blank); 
+--      SetLabelText(lbSts1,  Blank); 
       
       GetUnits(g_iTotalScale, g_uUnits);
       g_sysResult1 := GetGross(g_iTotalScale, g_uUnits, rGrossWgt); 
@@ -1771,7 +1804,7 @@ program TruckInOut;
       
 			-- Get Gross Command
       if g_sysResult1 <> SysOk then
-        SetLabelText(lbSts1, "Scale Error: " + SysCodeToString(g_sysResult1));  
+--        SetLabelText(lbSts1, "Scale Error: " + SysCodeToString(g_sysResult1));  
         ReadytoProcessTruck(200);
 			  return;
       else
@@ -1782,14 +1815,14 @@ program TruckInOut;
 			
 			-- Check In Range
       if g_sysResult2 <> SysOk then
-        SetLabelText(lbSts1, "Scale Error: " + SysCodeToString(g_sysResult2));  
+--        SetLabelText(lbSts1, "Scale Error: " + SysCodeToString(g_sysResult2));  
         ReadytoProcessTruck(200);  
 			  return;
       end if;			
 			
 		 -- Validate InRage
 		 if iInRange = 0 then  
-        SetLabelText(lbSts1, "Scale NOT In Range");  
+--        SetLabelText(lbSts1, "Scale NOT In Range");  
         ReadytoProcessTruck(200); 
 				return;
 		 end if;
@@ -1806,18 +1839,18 @@ program TruckInOut;
           PrintInboundTicket;  -- Print Inbound Ticket
           
           if g_iTruckExit = 1 then
-            SetLabelText(lbSts1, "Weigh In Complete - Exit Scale");
+--            SetLabelText(lbSts1, "Weigh In Complete - Exit Scale");
             TurnOffWeighInOutButtons;            
             ClearTare(g_iTotalScale);
             EntryMode := ExitScale;
             TurnOnGreenLight;		
           else
-            SetLabelText(lbSts1, "Weigh In Complete"); 
+--            SetLabelText(lbSts1, "Weigh In Complete"); 
             EntryMode := WeighMode;
           end if;		
 
         else 
-          SetLabelText(lbSts1, "Database Error: " + SysCodeToString(g_sysResult1));
+--          SetLabelText(lbSts1, "Database Error: " + SysCodeToString(g_sysResult1));
         	ReadytoProcessTruck(200);  					
         end if;  
 
@@ -1830,7 +1863,7 @@ program TruckInOut;
         SetPrintText(5, "KEYED"); 
         StoreTransaction;           
         PrintOutboundTicket;  
-        SetLabelText(lbSts1, "Weigh Out Complete - Exit Scale");  
+--        SetLabelText(lbSts1, "Weigh Out Complete - Exit Scale");  
         TurnOffWeighInOutButtons;             
         TurnOnGreenLight;
         IncrementTicketNbr;
@@ -1879,12 +1912,12 @@ program TruckInOut;
         end if;  
 
         if g_iTruckExit = 1 then
-          SetLabelText(lbSts1, "Weigh Out Complete - Exit Scale");
+--          SetLabelText(lbSts1, "Weigh Out Complete - Exit Scale");
           TurnOffWeighInOutButtons;
           TurnOnGreenLight;    
           EntryMode := ExitScale;
         else
-          SetLabelText(lbSts1, "Weigh Out Complete"); 
+--          SetLabelText(lbSts1, "Weigh Out Complete"); 
           EntryMode := WeighMode;
           TurnOnGreenLight;
         end if;
@@ -1892,8 +1925,8 @@ program TruckInOut;
         
       end if;  
       
-    else
-      SetLabelText(lbSts1, "...In Motion...");
+--    else
+--      SetLabelText(lbSts1, "...In Motion...");
     end if;
 
   end;   
@@ -1902,7 +1935,7 @@ program TruckInOut;
 	begin
 	
     EntryMode := WeighMode;  
-    SetLabelText(lbSts1, Blank); 
+--    SetLabelText(lbSts1, Blank); 
 	end;  
 
   handler UserEntry;  -- Processing a data entry method
@@ -2022,10 +2055,10 @@ program TruckInOut;
 
     elsif g_iWidget = btnWIn and EntryMode = WeighMode then
       PromptForEntry("Enter Truck ID", EnterTruckID_WeighIn, Blank,1);
-			SetLabelText(lbSts1, Blank);
+--			SetLabelText(lbSts1, Blank);
 
     elsif g_iWidget = btnWOut and EntryMode = WeighMode then
-      SetLabelText(lbSts1, Blank);
+--      SetLabelText(lbSts1, Blank);
       PromptForEntry("Enter Truck ID", EnterTruckID_WeighOut, Blank,1); 
 
     elsif g_iWidget = lbSet7 then 
@@ -2201,6 +2234,18 @@ program TruckInOut;
           PromptForEntry("Enter Password", SetupEnterSPasswordMode, Blank, 3);  
         end if; 
       end if;
+
+    elsif g_iWidget = lblWMode then
+      if g_weighswitch = True then
+        SetLabelText(lblWMode, "Mode: Weigh Out");
+        g_weighswitch := False;
+        TurnOnRedLight;
+      else
+        SetLabelText(lblWMode, "Mode: Weigh In");
+        g_weighswitch := True;
+        TurnOnRedLight2;
+      end if;
+        
 
     end if;
 
