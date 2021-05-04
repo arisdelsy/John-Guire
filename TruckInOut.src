@@ -1425,6 +1425,7 @@ program TruckInOut;
     SelectScale(g_iTotalScale);
     g_weighswitch := True;
     SetLabelText(lblWMode, "Mode: Weigh In");
+    TurnOnRedLight2;
 
   end; 
 
