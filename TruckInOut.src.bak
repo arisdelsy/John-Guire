@@ -2228,26 +2228,18 @@ program TruckInOut;
       end if;    
 
     elsif g_iWidget = btnStop or g_iWidget = BtnGo then
-      if g_iTrafficLights = 0 then 
         if g_sLightStatus = "RED" then 
           TurnOnGreenLightManually;
         else
           TurnOnRedLightManually;
         end if;   
-      else
-        DisplayStatus("Lights are in Auto Mode");
-      end if; 
 
     elsif g_iWidget = btnStop2 or g_iWidget = BtnGo2 then
-      if g_iTrafficLights = 0 then 
         if g_sLightStatus2 = "RED" then 
           TurnOnGreenLightManually2;
         else
           TurnOnRedLightManually2;
         end if;   
-      else
-        DisplayStatus("Lights are in Auto Mode");
-      end if; 
     
     elsif g_iWidget = btnSetup then
       if EntryMode = NoMode then  
@@ -2268,6 +2260,8 @@ program TruckInOut;
         --g_weighswitch := True;
         --TurnOnRedLight2;
       --end if;
+      ---------------------
+      --DisplayStatus   <-- Function to use later
         
 
     end if;
