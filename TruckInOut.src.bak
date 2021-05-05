@@ -233,6 +233,8 @@ begin
       SetDigout(g_ciDigSlot, g_ciGreenLight, g_ciDigOutOn); 
       TurnOnRedLightManually2;
       g_sLightStatus := "GREEN";
+      g_weighswitch := True;
+      SetLabelText(lblWMode, "Mode: Weigh In");
       SetImageWidgetPath(btnStop, "local://24.png");
       SetImageWidgetPath(btnGo, "local://23.png");
   
@@ -246,6 +248,8 @@ begin
       SetDigout(g_ciDigSlot, g_ciGreenLight2, g_ciDigOutOn); 
       TurnOnRedLightManually;
       g_sLightStatus2 := "GREEN";
+      g_weighswitch := False;
+      SetLabelText(lblWMode, "Mode: Weigh Out");
       SetImageWidgetPath(btnStop2, "local://24.png");
       SetImageWidgetPath(btnGo2, "local://23.png");
   
@@ -1716,6 +1720,14 @@ begin
 
   end;
 
+  handler Timer7Trip;
+  begin
+
+    TurnOnRedLight;
+    TurnOnRedLight2;
+
+  end;
+
   handler SP1Trip;
   begin
 
@@ -1725,7 +1737,6 @@ begin
     SelectScreen(g_ciMain);	
     if g_weighswitch = True then
       TurnOnRedLight; --Weigh in lights
-      TurnOnRedLight2;
     else
       TurnOnRedLight2; -- Weigh out lights
     end if;
@@ -1765,14 +1776,14 @@ begin
     DisableSP(2);
     EnableSP(1);
     ClosePrompt;
+    UnlockMajorKeys; 
+    EntryMode := NoMode;  
+    selectscreen(g_cimain);
     if g_weighswitch = True then
       TurnOnGreenLight; --Weigh in lights
     else
       TurnOnGreenLight2; -- Weigh out lights
-    end if;
-    UnlockMajorKeys; 
-    EntryMode := NoMode;  
-    selectscreen(g_cimain); 
+    end if; 
     SetWidgetVisibility(btnRegs, Von);
     SetWidgetVisibility(btnSetup, Von);
     SetWidgetVisibility(btnStop, Von);
@@ -1854,14 +1865,14 @@ begin
           PrintInboundTicket;  -- Print Inbound Ticket
           
           if g_iTruckExit = 1 then
---            SetLabelText(lbSts1, "Weigh In Complete - Exit Scale");
+            DisplayStatus("Weigh In Complete - Exit Scale");
             TurnOffWeighInOutButtons;            
             ClearTare(g_iTotalScale);
             EntryMode := ExitScale;
             TurnOnGreenLight;
             SetupStartTimer(5, 500, TimerOneShot);		
           else
---            SetLabelText(lbSts1, "Weigh In Complete"); 
+            DisplayStatus("Weigh In Complete");
             EntryMode := WeighMode;
           end if;		
 
@@ -1879,13 +1890,13 @@ begin
         SetPrintText(5, "KEYED"); 
         StoreTransaction;           
         PrintOutboundTicket;  
---        SetLabelText(lbSts1, "Weigh Out Complete - Exit Scale");  
+        DisplayStatus("Weigh Out Complete - Exit Scale");  
         TurnOffWeighInOutButtons;             
         TurnOnGreenLight2;
         IncrementTicketNbr;
         ClearTare(g_iTotalScale);  
 				EntryMode := ExitScale;
-        SetupStartTimer(1, 500, TimerOneShot);
+        SetupStartTimer(7, 1000, TimerOneShot);
                   
       elsif EntryMode = CapturingOutboundWeight then  -- Weigh Out
 
@@ -1929,23 +1940,23 @@ begin
         end if;  
 
         if g_iTruckExit = 1 then
---          SetLabelText(lbSts1, "Weigh Out Complete - Exit Scale");
+          DisplayStatus("Weigh Out Complete - Exit Scale"); 
           TurnOffWeighInOutButtons;
           TurnOnGreenLight2;    
           EntryMode := ExitScale;
-          SetupStartTimer(1, 500, TimerOneShot);
+          SetupStartTimer(7, 1000, TimerOneShot);
         else
---          SetLabelText(lbSts1, "Weigh Out Complete"); 
+          DisplayStatus("Weigh Out Complete"); 
           EntryMode := WeighMode;
           TurnOnGreenLight2;
-          SetupStartTimer(1, 500, TimerOneShot);
+          SetupStartTimer(7, 1000, TimerOneShot);
         end if;
         IncrementTicketNbr;
         
       end if;  
       
---    else
---      SetLabelText(lbSts1, "...In Motion...");
+    else 
+      DisplayStatus("...In Motion..."); 
     end if;
 
   end;   
@@ -2259,13 +2270,14 @@ begin
 ------------------------------------------------------------------------------
     elsif g_iWidget = lblWMode then
       if g_weighswitch = True then
-        SetupStartTimer(1,10, TimerOneShot);
-      else
         SetupStartTimer(5,10, TimerOneShot);
+      else
+        SetupStartTimer(1,10, TimerOneShot);
       end if;
       ---------------------
       --DisplayStatus   <-- Function to use later
-        
+    elsif g_iWidget = btnGPrt then
+      Print(GrossFmt);
 
     end if;
 
