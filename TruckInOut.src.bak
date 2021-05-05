@@ -183,6 +183,33 @@ program TruckInOut;
     
   end;
 
+procedure TurnOnRedLightManually; 
+ begin
+
+    Print(Auxfmt19);        
+    SetDigout(g_ciDigSlot, g_ciGreenLight, g_ciDigOutOff);
+    SetDigout(g_ciDigSlot, g_ciRedLight, g_ciDigOutOn);   
+
+    g_sLightStatus := "RED";   
+    SetImageWidgetPath(btnStop, "local://25.png");
+    SetImageWidgetPath(btnGo, "local://22.png");
+
+ end;    
+ 
+procedure TurnOnRedLightManually2; 
+begin
+
+    Print(Auxfmt19);        
+    SetDigout(g_ciDigSlot, g_ciGreenLight2, g_ciDigOutOff);
+    SetDigout(g_ciDigSlot, g_ciRedLight2, g_ciDigOutOn);   
+
+    g_sLightStatus2 := "RED";   
+    SetImageWidgetPath(btnStop2, "local://25.png");
+    SetImageWidgetPath(btnGo2, "local://22.png");
+
+ end; 
+
+
   procedure TurnOnGreenLight;  
   begin 
 
@@ -204,6 +231,7 @@ program TruckInOut;
       Print(Auxfmt20);
       SetDigout(g_ciDigSlot, g_ciRedLight, g_ciDigOutOff);
       SetDigout(g_ciDigSlot, g_ciGreenLight, g_ciDigOutOn); 
+      TurnOnRedLightManually2;
       g_sLightStatus := "GREEN";
       SetImageWidgetPath(btnStop, "local://24.png");
       SetImageWidgetPath(btnGo, "local://23.png");
@@ -216,6 +244,7 @@ program TruckInOut;
       Print(Auxfmt20);
       SetDigout(g_ciDigSlot, g_ciRedLight2, g_ciDigOutOff);
       SetDigout(g_ciDigSlot, g_ciGreenLight2, g_ciDigOutOn); 
+      TurnOnRedLightManually;
       g_sLightStatus2 := "GREEN";
       SetImageWidgetPath(btnStop2, "local://24.png");
       SetImageWidgetPath(btnGo2, "local://23.png");
@@ -265,31 +294,9 @@ program TruckInOut;
 		
  end;  
 
- procedure TurnOnRedLightManually; 
- begin
+    
 
-    Print(Auxfmt19);        
-    SetDigout(g_ciDigSlot, g_ciGreenLight, g_ciDigOutOff);
-    SetDigout(g_ciDigSlot, g_ciRedLight, g_ciDigOutOn);   
-
-    g_sLightStatus := "RED";   
-    SetImageWidgetPath(btnStop, "local://25.png");
-    SetImageWidgetPath(btnGo, "local://22.png");
-
- end;       
-
- procedure TurnOnRedLightManually2; 
- begin
-
-    Print(Auxfmt19);        
-    SetDigout(g_ciDigSlot, g_ciGreenLight2, g_ciDigOutOff);
-    SetDigout(g_ciDigSlot, g_ciRedLight2, g_ciDigOutOn);   
-
-    g_sLightStatus2 := "RED";   
-    SetImageWidgetPath(btnStop2, "local://25.png");
-    SetImageWidgetPath(btnGo2, "local://22.png");
-
- end; 
+ 
 
  procedure TurnOffWeighInOutButtons;
  begin
@@ -2252,9 +2259,9 @@ program TruckInOut;
 ------------------------------------------------------------------------------
     elsif g_iWidget = lblWMode then
       if g_weighswitch = True then
-        SetupStartTimer(1, 10, TimerOneShot);
+        SetupStartTimer(1,10, TimerOneShot);
       else
-        SetupStartTimer(5, 10, TimerOneShot);
+        SetupStartTimer(5,10, TimerOneShot);
       end if;
       ---------------------
       --DisplayStatus   <-- Function to use later
