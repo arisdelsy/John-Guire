@@ -106,7 +106,8 @@ program TruckInOut;
   g_iTruckExit : stored integer;
   g_iPage : integer;
   g_iWidgetNum : integer;  
-  g_sLightStatus : string;    
+  g_sLightStatus : string;
+  g_sLightStatus2 : string;    
   g_rThresholdWeight : stored real;
   g_iTicketNbr : stored integer;
   g_iTrafficLights : stored integer;
@@ -215,7 +216,7 @@ program TruckInOut;
       Print(Auxfmt20);
       SetDigout(g_ciDigSlot, g_ciRedLight2, g_ciDigOutOff);
       SetDigout(g_ciDigSlot, g_ciGreenLight2, g_ciDigOutOn); 
-      g_sLightStatus := "GREEN";
+      g_sLightStatus2 := "GREEN";
       SetImageWidgetPath(btnStop2, "local://24.png");
       SetImageWidgetPath(btnGo2, "local://23.png");
   
@@ -243,7 +244,7 @@ program TruckInOut;
       SetDigout(g_ciDigSlot, g_ciRedLight2, g_ciDigOutOff);
       --SetupStartTimer(6, 500, TimerOneShot);
       SetDigout(g_ciDigSlot, g_ciGreenLight2, g_ciDigOutOn); 
-      g_sLightStatus := "GREEN";
+      g_sLightStatus2 := "GREEN";
       SetImageWidgetPath(btnStop2, "local://24.png");
       SetImageWidgetPath(btnGo2, "local://23.png");
     end if;
@@ -259,7 +260,7 @@ program TruckInOut;
       SetDigout(g_ciDigSlot, g_ciGreenLight2, g_ciDigOutOff);
       SetDigout(g_ciDigSlot, g_ciRedLight2, g_ciDigOutOn);
       --SetupStartTimer(5, 500, TimerOneshot);   
-      g_sLightStatus := "RED";   
+      g_sLightStatus2 := "RED";   
       SetImageWidgetPath(btnStop2, "local://25.png");
       SetImageWidgetPath(btnGo2, "local://22.png");
     end if;
@@ -286,7 +287,7 @@ program TruckInOut;
     SetDigout(g_ciDigSlot, g_ciGreenLight2, g_ciDigOutOff);
     SetDigout(g_ciDigSlot, g_ciRedLight2, g_ciDigOutOn);   
 
-    g_sLightStatus := "RED";   
+    g_sLightStatus2 := "RED";   
     SetImageWidgetPath(btnStop2, "local://25.png");
     SetImageWidgetPath(btnGo2, "local://22.png");
 
@@ -2222,6 +2223,17 @@ program TruckInOut;
           TurnOnGreenLightManually;
         else
           TurnOnRedLightManually;
+        end if;   
+      else
+        DisplayStatus("Lights are in Auto Mode");
+      end if; 
+
+    elsif g_iWidget = btnStop2 or g_iWidget = BtnGo2 then
+      if g_iTrafficLights = 0 then 
+        if g_sLightStatus2 = "RED" then 
+          TurnOnGreenLightManually2;
+        else
+          TurnOnRedLightManually2;
         end if;   
       else
         DisplayStatus("Lights are in Auto Mode");
