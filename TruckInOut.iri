@@ -242,6 +242,10 @@ btnRPnt   : constant integer := 129;
 lblWMode  : constant integer := 130;
 barSet14  : constant integer := 160;
 lbSet14   : constant integer := 168;
+lbl131    : constant integer := 131;
+lbl132    : constant integer := 132;
+btnGPrt   : constant integer := 133;
+lbl134    : constant integer := 134;
 
 USBPRN    : constant string := "USBPRN";
 ADVPRN    : constant string := "ADVPRN";
