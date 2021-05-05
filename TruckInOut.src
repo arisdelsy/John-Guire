@@ -2259,9 +2259,9 @@ begin
 ------------------------------------------------------------------------------
     elsif g_iWidget = lblWMode then
       if g_weighswitch = True then
-        SetupStartTimer(1,10, TimerOneShot);
-      else
         SetupStartTimer(5,10, TimerOneShot);
+      else
+        SetupStartTimer(1,10, TimerOneShot);
       end if;
       ---------------------
       --DisplayStatus   <-- Function to use later
