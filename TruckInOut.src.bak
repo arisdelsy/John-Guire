@@ -106,7 +106,8 @@ program TruckInOut;
   g_iTruckExit : stored integer;
   g_iPage : integer;
   g_iWidgetNum : integer;  
-  g_sLightStatus : string;    
+  g_sLightStatus : string;
+  g_sLightStatus2 : string;    
   g_rThresholdWeight : stored real;
   g_iTicketNbr : stored integer;
   g_iTrafficLights : stored integer;
@@ -215,7 +216,7 @@ program TruckInOut;
       Print(Auxfmt20);
       SetDigout(g_ciDigSlot, g_ciRedLight2, g_ciDigOutOff);
       SetDigout(g_ciDigSlot, g_ciGreenLight2, g_ciDigOutOn); 
-      g_sLightStatus := "GREEN";
+      g_sLightStatus2 := "GREEN";
       SetImageWidgetPath(btnStop2, "local://24.png");
       SetImageWidgetPath(btnGo2, "local://23.png");
   
@@ -241,9 +242,8 @@ program TruckInOut;
     if g_iTrafficLights = 1 then
       Print(Auxfmt20);
       SetDigout(g_ciDigSlot, g_ciRedLight2, g_ciDigOutOff);
-      --SetupStartTimer(6, 500, TimerOneShot);
       SetDigout(g_ciDigSlot, g_ciGreenLight2, g_ciDigOutOn); 
-      g_sLightStatus := "GREEN";
+      g_sLightStatus2 := "GREEN";
       SetImageWidgetPath(btnStop2, "local://24.png");
       SetImageWidgetPath(btnGo2, "local://23.png");
     end if;
@@ -258,8 +258,7 @@ program TruckInOut;
       Print(Auxfmt19);        
       SetDigout(g_ciDigSlot, g_ciGreenLight2, g_ciDigOutOff);
       SetDigout(g_ciDigSlot, g_ciRedLight2, g_ciDigOutOn);
-      --SetupStartTimer(5, 500, TimerOneshot);   
-      g_sLightStatus := "RED";   
+      g_sLightStatus2 := "RED";   
       SetImageWidgetPath(btnStop2, "local://25.png");
       SetImageWidgetPath(btnGo2, "local://22.png");
     end if;
@@ -286,7 +285,7 @@ program TruckInOut;
     SetDigout(g_ciDigSlot, g_ciGreenLight2, g_ciDigOutOff);
     SetDigout(g_ciDigSlot, g_ciRedLight2, g_ciDigOutOn);   
 
-    g_sLightStatus := "RED";   
+    g_sLightStatus2 := "RED";   
     SetImageWidgetPath(btnStop2, "local://25.png");
     SetImageWidgetPath(btnGo2, "local://22.png");
 
@@ -912,9 +911,11 @@ program TruckInOut;
     SetLabelText(lbSet13, "View Product List"); 
 
     if g_iTrafficLights = 1 then
-      SetLabelText(lbSet15, "Traffic Lights: Auto");   
+      SetLabelText(lbSet15, "Traffic Lights: Auto");
+      SetupStartTimer(1, 10, TimerOneShot);   
     else
-      SetLabelText(lbSet15, "Traffic Lights: Manual");  
+      SetLabelText(lbSet15, "Traffic Lights: Manual");
+      SetLabelText(lblWMode, "Mode: Manual");  
     end if; 
 
     SetLabelText(lbSet16, "Ticket Number: " + Integertostring(g_iTicketNbr,0));    
@@ -1423,9 +1424,9 @@ program TruckInOut;
     SelectScreen(g_ciMain); 
     EntryMode := NoMode; 
     SelectScale(g_iTotalScale);
-    g_weighswitch := True;
-    SetLabelText(lblWMode, "Mode: Weigh In");
-    TurnOnRedLight2;
+    --g_weighswitch := True;
+    --SetLabelText(lblWMode, "Mode: Weigh In");
+    --TurnOnRedLight2;
 
   end; 
 
@@ -1692,13 +1693,19 @@ program TruckInOut;
   begin
   
     TurnOnGreenLight;
-  
+    TurnOnRedLight2;
+    g_weighswitch := True;
+    SetLabelText(lblWMode, "Mode: Weigh In");
+
   end;
 
   handler Timer5Trip;
   begin
-
-    TurnOnRedLight2;
+    
+    TurnOnRedLight;
+    TurnOnGreenLight2;
+    g_weighswitch := False;
+    SetLabelText(lblWMode, "Mode: Weigh Out");
 
   end;
 
@@ -1844,7 +1851,8 @@ program TruckInOut;
             TurnOffWeighInOutButtons;            
             ClearTare(g_iTotalScale);
             EntryMode := ExitScale;
-            TurnOnGreenLight;		
+            TurnOnGreenLight;
+            SetupStartTimer(5, 500, TimerOneShot);		
           else
 --            SetLabelText(lbSts1, "Weigh In Complete"); 
             EntryMode := WeighMode;
@@ -1866,10 +1874,11 @@ program TruckInOut;
         PrintOutboundTicket;  
 --        SetLabelText(lbSts1, "Weigh Out Complete - Exit Scale");  
         TurnOffWeighInOutButtons;             
-        TurnOnGreenLight;
+        TurnOnGreenLight2;
         IncrementTicketNbr;
         ClearTare(g_iTotalScale);  
 				EntryMode := ExitScale;
+        SetupStartTimer(1, 500, TimerOneShot);
                   
       elsif EntryMode = CapturingOutboundWeight then  -- Weigh Out
 
@@ -1915,12 +1924,14 @@ program TruckInOut;
         if g_iTruckExit = 1 then
 --          SetLabelText(lbSts1, "Weigh Out Complete - Exit Scale");
           TurnOffWeighInOutButtons;
-          TurnOnGreenLight;    
+          TurnOnGreenLight2;    
           EntryMode := ExitScale;
+          SetupStartTimer(1, 500, TimerOneShot);
         else
 --          SetLabelText(lbSts1, "Weigh Out Complete"); 
           EntryMode := WeighMode;
-          TurnOnGreenLight;
+          TurnOnGreenLight2;
+          SetupStartTimer(1, 500, TimerOneShot);
         end if;
         IncrementTicketNbr;
         
@@ -2226,6 +2237,17 @@ program TruckInOut;
       else
         DisplayStatus("Lights are in Auto Mode");
       end if; 
+
+    elsif g_iWidget = btnStop2 or g_iWidget = BtnGo2 then
+      if g_iTrafficLights = 0 then 
+        if g_sLightStatus2 = "RED" then 
+          TurnOnGreenLightManually2;
+        else
+          TurnOnRedLightManually2;
+        end if;   
+      else
+        DisplayStatus("Lights are in Auto Mode");
+      end if; 
     
     elsif g_iWidget = btnSetup then
       if EntryMode = NoMode then  
@@ -2235,17 +2257,17 @@ program TruckInOut;
           PromptForEntry("Enter Password", SetupEnterSPasswordMode, Blank, 3);  
         end if; 
       end if;
-
-    elsif g_iWidget = lblWMode then
-      if g_weighswitch = True then
-        SetLabelText(lblWMode, "Mode: Weigh Out");
-        g_weighswitch := False;
-        TurnOnRedLight;
-      else
-        SetLabelText(lblWMode, "Mode: Weigh In");
-        g_weighswitch := True;
-        TurnOnRedLight2;
-      end if;
+------------------------------------------------------------------------------
+    --elsif g_iWidget = lblWMode then
+      --if g_weighswitch = True then
+        --SetLabelText(lblWMode, "Mode: Weigh Out");
+        --g_weighswitch := False;
+        --TurnOnRedLight;
+      --else
+        --SetLabelText(lblWMode, "Mode: Weigh In");
+        --g_weighswitch := True;
+        --TurnOnRedLight2;
+      --end if;
         
 
     end if;
