@@ -1729,7 +1729,7 @@ begin
   handler Timer9Trip;
   begin
 
-
+    SetDigout(g_ciDigSlot, g_ciBuzzer, g_ciDigOutOn); 
 
   end;
 
@@ -1745,6 +1745,7 @@ begin
     else
       TurnOnRedLight2; -- Weigh out lights
     end if;
+    SetupStartTimer(9, 300, TimerOneShot);
     SelectScale(g_iTotalScale);
     EntryMode := WeighMode;  
     SetWidgetVisibility(btnSetup, VOff);
