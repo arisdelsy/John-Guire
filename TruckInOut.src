@@ -201,7 +201,7 @@ procedure TurnOnRedLightManually;
 procedure TurnOnRedLightManually2; 
 begin
 
-    Print(Auxfmt19);        
+    Print(Auxfmt17);        
     SetDigout(g_ciDigSlot, g_ciGreenLight2, g_ciDigOutOff);
     SetDigout(g_ciDigSlot, g_ciRedLight2, g_ciDigOutOn);   
 
@@ -245,7 +245,7 @@ begin
   procedure TurnOnGreenLightManually2;  
   begin 
 
-      Print(Auxfmt20);
+      Print(Auxfmt18);
       SetDigout(g_ciDigSlot, g_ciRedLight2, g_ciDigOutOff);
       SetDigout(g_ciDigSlot, g_ciGreenLight2, g_ciDigOutOn); 
       TurnOnRedLightManually;
@@ -275,7 +275,7 @@ begin
   begin 
 
     if g_iTrafficLights = 1 then
-      Print(Auxfmt20);
+      Print(Auxfmt18);
       SetDigout(g_ciDigSlot, g_ciRedLight2, g_ciDigOutOff);
       SetDigout(g_ciDigSlot, g_ciGreenLight2, g_ciDigOutOn); 
       g_sLightStatus2 := "GREEN";
@@ -290,7 +290,7 @@ begin
  begin
 
     if g_iTrafficLights = 1 then
-      Print(Auxfmt19);        
+      Print(Auxfmt17);        
       SetDigout(g_ciDigSlot, g_ciGreenLight2, g_ciDigOutOff);
       SetDigout(g_ciDigSlot, g_ciRedLight2, g_ciDigOutOn);
       g_sLightStatus2 := "RED";   
