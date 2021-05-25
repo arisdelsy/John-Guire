@@ -36,7 +36,7 @@ program TruckInOut;
   g_ciRedLight     : constant integer := 2;
   g_ciGreenLight2  : constant integer := 3;
   g_ciRedLight2    : constant integer := 4;
-  g_ciBuzzer       : constant integer := 5;
+  g_ciBuzzer       : constant integer := 8;
      
   -- Operation Modes
   LockMode                : constant integer := 0;
@@ -201,7 +201,7 @@ procedure TurnOnRedLightManually;
 procedure TurnOnRedLightManually2; 
 begin
 
-    Print(Auxfmt19);        
+    Print(Auxfmt17);        
     SetDigout(g_ciDigSlot, g_ciGreenLight2, g_ciDigOutOff);
     SetDigout(g_ciDigSlot, g_ciRedLight2, g_ciDigOutOn);   
 
@@ -245,7 +245,7 @@ begin
   procedure TurnOnGreenLightManually2;  
   begin 
 
-      Print(Auxfmt20);
+      Print(Auxfmt18);
       SetDigout(g_ciDigSlot, g_ciRedLight2, g_ciDigOutOff);
       SetDigout(g_ciDigSlot, g_ciGreenLight2, g_ciDigOutOn); 
       TurnOnRedLightManually;
@@ -275,7 +275,7 @@ begin
   begin 
 
     if g_iTrafficLights = 1 then
-      Print(Auxfmt20);
+      Print(Auxfmt18);
       SetDigout(g_ciDigSlot, g_ciRedLight2, g_ciDigOutOff);
       SetDigout(g_ciDigSlot, g_ciGreenLight2, g_ciDigOutOn); 
       g_sLightStatus2 := "GREEN";
@@ -290,7 +290,7 @@ begin
  begin
 
     if g_iTrafficLights = 1 then
-      Print(Auxfmt19);        
+      Print(Auxfmt17);        
       SetDigout(g_ciDigSlot, g_ciGreenLight2, g_ciDigOutOff);
       SetDigout(g_ciDigSlot, g_ciRedLight2, g_ciDigOutOn);
       g_sLightStatus2 := "RED";   
@@ -1729,8 +1729,7 @@ begin
   handler Timer9Trip;
   begin
 
-    --SetDigout(g_ciDigSlot, g_ciBuzzer, g_ciDigOutOn); 
-    SetDigout(g_ciDigSlot, g_ciRedLight, g_ciDigOutOff); 
+    SetDigout(g_ciDigSlot, g_ciBuzzer, g_ciDigOutOff); 
 
   end;
 
@@ -1746,9 +1745,8 @@ begin
     else
       TurnOnRedLight2; -- Weigh out lights
     end if;
+    SetDigout(g_ciDigSlot, g_ciBuzzer, g_ciDigOutOn); 
     SetupStartTimer(9, 300, TimerOneShot);
-    --SetDigout(g_ciDigSlot, g_ciBuzzer, g_ciDigOutOff); 
-    SetDigout(g_ciDigSlot, g_ciRedLight, g_ciDigOutOn); 
     SelectScale(g_iTotalScale);
     EntryMode := WeighMode;  
     SetWidgetVisibility(btnSetup, VOff);
