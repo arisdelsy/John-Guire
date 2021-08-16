@@ -4,7 +4,7 @@
   <IndicatorModel value="1280" />
   <IndicatorVersion value="1.07+" />
   <ChildAssembly value="rev1280.v305.dll" />
-  <ConfigHash value="188 9 239 143 181 104 248 155 2 48 213 224 130 181 209 210 1 188 66 50 " />
+  <ConfigHash value="239 108 81 30 78 95 49 29 1 100 31 145 175 64 56 249 71 92 188 31 " />
   <CODFile value="C:\AACode\1280_TruckInOut_PN181077\source\TruckInOut.cod" />
   <Config>SC.ALIAS#1=Scale1
 SC.CAPACITY#1=120000
@@ -13385,7 +13385,7 @@ GFMT.PORT2=NONE
 NFMT=&lt;NL20&gt;&lt;SP36&gt;GROSS &lt;G&gt;&lt;NL&gt;&lt;SP36&gt;TARE  &lt;T&gt;&lt;NL&gt;&lt;SP36&gt;NET   &lt;N&gt;&lt;NL2&gt;&lt;SP36&gt;&lt;TD&gt;&lt;NL&gt;
 NFMT.PORT=PORT1
 NFMT.PORT2=NONE
-AUXFMT#1=&lt;NL4&gt;&lt;SP23&gt;ID &lt;US1&gt;&lt;NL2&gt;&lt;SP23&gt;GROSS &lt;US2&gt; INBOUND&lt;NL2&gt;&lt;SP23&gt;&lt;US4&gt; &lt;US3&gt;&lt;NL&gt;
+AUXFMT#1=&lt;NL4&gt;&lt;SP23&gt;ID &lt;US1&gt;&lt;NL2&gt;&lt;SP23&gt;GROSS &lt;US2&gt; INBOUND&lt;NL2&gt;&lt;SP23&gt;&lt;US4&gt; &lt;US3&gt;&lt;NL&gt;&lt;SP23&gt;549 U.S. 9, Ocean Twp, NJ&lt;NL&gt;&lt;SP23&gt;08758&lt;NL&gt;
 AUXFMT.PORT#1=PORT1
 AUXFMT.PORT2#1=NONE
 AUXFMT#2=&lt;NL14&gt;&lt;SP23&gt;ID &lt;US1&gt;&lt;NL2&gt;&lt;SP23&gt;GROSS &lt;US2&gt; &lt;US3&gt;&lt;NL&gt;&lt;SP23&gt;TARE  &lt;US4&gt; &lt;US5&gt;&lt;NL&gt;&lt;SP23&gt;NET   &lt;US6&gt;&lt;NL2&gt;&lt;SP23&gt;&lt;US8&gt; &lt;US7&gt;&lt;NL&gt;
