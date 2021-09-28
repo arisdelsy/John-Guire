@@ -4,7 +4,7 @@
   <IndicatorModel value="1280" />
   <IndicatorVersion value="1.07+" />
   <ChildAssembly value="rev1280.v305.dll" />
-  <ConfigHash value="193 131 26 46 189 65 158 240 243 13 190 138 63 249 103 13 156 92 96 82 " />
+  <ConfigHash value="146 99 157 32 177 120 10 147 68 97 19 3 218 17 213 20 158 80 99 44 " />
   <CODFile value="C:\AACode\1280_TruckInOut_PN181077\source\TruckInOut.cod" />
   <Config>SC.ALIAS#1=Scale1
 SC.CAPACITY#1=120000
@@ -13385,7 +13385,7 @@ GFMT.PORT2=NONE
 NFMT=GROSS&lt;G&gt;&lt;NL&gt;TARE&lt;SP&gt;&lt;T&gt;&lt;NL&gt;NET&lt;SP2&gt;&lt;N&gt;&lt;NL2&gt;&lt;TD&gt;&lt;NL&gt;
 NFMT.PORT=PORT1
 NFMT.PORT2=NONE
-AUXFMT#1=&lt;STX&gt;O0110&lt;NL&gt;&lt;STX&gt;f182&lt;NL&gt;&lt;STX&gt;V4&lt;NL&gt;&lt;STX&gt;L&lt;NL&gt;A1&lt;NL&gt;D11&lt;NL&gt;SI&lt;NL&gt;PI&lt;NL&gt;H20&lt;NL&gt;191100506300011South Plainfield, New Jersey&lt;NL&gt;191100303850012Date (dd.mm.yy):&lt;NL&gt;191100304390012Net&lt;NL&gt;191100306010012ID&lt;NL&gt;191100302970012Gross&lt;NL&gt;191100304350280Tare&lt;NL&gt;191100303810280BATCH&lt;NL&gt;141200004540280999&lt;NL&gt;1e3313002070048C&amp;G021931234500001915991231370098&amp;G1012345678&amp;E9A&lt;NL&gt;14120000346001131/12/99&lt;NL&gt;14120000400028098 CS&lt;NL&gt;1911005065200114216 South Clinton Ave&lt;NL&gt;191100606780011Federal Metals &amp; Alloys&lt;NL&gt;1X1100003410005L399002&lt;NL&gt;141200003460280123456789A&lt;NL&gt;14120000400001119312345000019&lt;NL&gt;141200004700011193123450000000015&lt;NL&gt;1e6613000700047C&amp;G00193123450000000015&lt;NL&gt;191200201800062(02)19312345000019(15)991231(37)0098(10)123456789A&lt;NL&gt;191100400310102(00)193123450000000015&lt;NL&gt;Q0001&lt;NL&gt;E&lt;NL&gt;
+AUXFMT#1=&lt;STX&gt;&lt;ESC&gt;C&lt;ETX&gt;&lt;NL&gt;&lt;STX&gt;&lt;ESC&gt;P&lt;ETX&gt;&lt;NL&gt;&lt;STX&gt;E4;F4;&lt;ETX&gt;&lt;NL&gt;&lt;STX&gt;H0;o102,51;f0;c25;h20;w20;d0,30;&lt;ETX&gt; &lt;NL&gt;&lt;STX&gt;L1;o102,102;f0;l575;w5;&lt;ETX&gt;          &lt;NL&gt;&lt;STX&gt;B2;o203,153;c0,0;h100;w2;i1;d0,10;&lt;ETX&gt;       &lt;NL&gt;&lt;STX&gt;I2;h1;w1;c20;&lt;ETX&gt;                     &lt;NL&gt;&lt;STX&gt;R;&lt;ETX&gt;                   &lt;NL&gt;&lt;STX&gt;&lt;ESC&gt;E4&lt;ETX&gt;            &lt;NL&gt;&lt;STX&gt;&lt;CAN&gt;&lt;ETX&gt;                     &lt;NL&gt;&lt;STX&gt;THIS IS THE SAMPLE LABEL&lt;CR&gt;&lt;ETX&gt;    &lt;NL&gt;&lt;STX&gt;SAMPLE&lt;ETX&gt;                &lt;NL&gt;&lt;STX&gt;&lt;ETB&gt;&lt;ETX&gt;                    
 AUXFMT.PORT#1=PORT1
 AUXFMT.PORT2#1=NONE
 AUXFMT#2=TICKET &lt;US17&gt;&lt;NL2&gt;TRUCK ID &lt;US1&gt;&lt;NL&gt;&lt;US9&gt; &lt;US10&gt; &lt;US11&gt;&lt;NL&gt;&lt;US12&gt; &lt;US13&gt; &lt;US14&gt;&lt;NL2&gt;GROSS &lt;US2&gt; &lt;US3&gt;&lt;NL&gt;TARE  &lt;US4&gt; &lt;US5&gt;&lt;NL&gt;NET   &lt;US6&gt;&lt;NL&gt;&lt;SP6&gt;&lt;US15&gt; &lt;US16&gt;&lt;NL2&gt;&lt;US7&gt; &lt;US8&gt;&lt;NL&gt;
